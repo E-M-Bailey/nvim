@@ -75,6 +75,15 @@ function Remap_neotree()
 	vim.keymap.set('n', '<leader>nb', function()
 		vim.cmd.Neotree('buffers')
 	end)
+	-- 'Neotree Document symbols' - focus Neotree with document symbols
+	vim.keymap.set('n', '<leader>nd', function()
+		vim.cmd.Neotree('document_symbols')
+	end)
+	-- 'Neotree Harpoon' - focus Neotree with harpooned buffers
+	vim.keymap.set('n', '<leader>nh', function()
+		vim.cmd.Neotree('harpoon-buffers')
+	end)
+
 	-- 'Neotree Reveal' - focus Neotree with the most recent source
 	vim.keymap.set('n', '<leader>nr', function()
 		vim.cmd.Neotree('last')
