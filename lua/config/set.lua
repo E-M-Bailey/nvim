@@ -38,3 +38,6 @@ o.undofile = true
 -- Colors
 o.termguicolors = true
 
+-- Global config settings
+Harpoon_names = '1234567890'
+

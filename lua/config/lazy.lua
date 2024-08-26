@@ -27,9 +27,9 @@ require 'lazy'.setup({
 		{ import = 'plugins' },
 	},
 	-- NOTE other settings:
-	install = {
-		colorscheme = { 'habamax' }
-	},
+	-- install = {
+	--	colorscheme = { 'habamax' }
+	-- },
 	-- Check for updates automatically
 	checker = {
 		enabled = true

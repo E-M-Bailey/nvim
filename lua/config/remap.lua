@@ -3,6 +3,22 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
+function Dump(o, id)
+	if type(o) == 'table' then
+		local s = string.rep(' ', id) .. '{\n'
+		for k,v in pairs(o) do
+			if type(k) ~= 'number' then k = '"'..k..'"' end
+			s = s .. string.rep(' ', id + 1) .. '['..k..'] = \n' .. Dump(v, id + 2) .. ',\n'
+		end
+		return s .. string.rep(' ', id) .. '} '
+	else
+		return string.rep(' ', id) .. tostring(o)
+	end
+end
+function DumpNT()
+	return Dump(require 'neo-tree'.config, 0)
+end
+
 function Remap_general()
 	-- 'Quit' - exit
 	vim.keymap.set('n', '<leader>q', vim.cmd.xit)
@@ -15,6 +31,43 @@ function Remap_general()
 
 	-- 'Project View' - file explorer
 	vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+
+	vim.keymap.set('n', '<leader>ts', function()
+		local title = 'test-title'
+		local NuiText = require 'nui.text'
+		local NuiPopup = require 'nui.popup'
+		local Input = require 'nui.input'
+		local hl = require 'neo-tree.ui.highlights'
+		local nt = require 'neo-tree'
+		local blank = NuiText(' ', hl.TITLE_BAR)
+		local brd_txt = NuiText(title, hl.TITLE_BAR)
+		print(hl.TITLE_BAR)
+		local popup_opts = {
+			relative = 'cursor',
+			position = {
+				row = 1,
+				col = 0
+			},
+			size = string.len(title) + 2,
+			border = {
+				text = {
+				--	top = NuiText(title, hl.FLOAT_TITLE)
+					top = NuiText(title, hl.TITLE_BAR),
+				--	top_align = 'left',
+				},
+				style = 'rounded',
+				-- highlight = hl.FLOAT_BORDER,
+				-- style = { "▕", blank, "▏", "▏", " ", "▔", " ", "▕" },
+				highlight = hl.FLOAT_BORDER,
+			},
+		}
+		local input = Input(popup_opts, {
+			prompt = ' y/n: ',
+		})
+		input.prompt_type = 'confirm'
+
+		input:mount()
+	end)
 end
 
 function Remap_fugitive()
