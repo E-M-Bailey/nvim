@@ -15,43 +15,6 @@ function Remap_general()
 
 	-- 'Project View' - file explorer
 	vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
-
-	vim.keymap.set('n', '<leader>ts', function()
-		local title = 'test-title'
-		local NuiText = require 'nui.text'
-		local NuiPopup = require 'nui.popup'
-		local Input = require 'nui.input'
-		local hl = require 'neo-tree.ui.highlights'
-		local nt = require 'neo-tree'
-		local blank = NuiText(' ', hl.TITLE_BAR)
-		local brd_txt = NuiText(title, hl.TITLE_BAR)
-		print(hl.TITLE_BAR)
-		local popup_opts = {
-			relative = 'cursor',
-			position = {
-				row = 1,
-				col = 0
-			},
-			size = string.len(title) + 2,
-			border = {
-				text = {
-				--	top = NuiText(title, hl.FLOAT_TITLE)
-					top = NuiText(title, hl.TITLE_BAR),
-				--	top_align = 'left',
-				},
-				style = 'rounded',
-				-- highlight = hl.FLOAT_BORDER,
-				-- style = { "▕", blank, "▏", "▏", " ", "▔", " ", "▕" },
-				highlight = hl.FLOAT_BORDER,
-			},
-		}
-		local input = Input(popup_opts, {
-			prompt = ' y/n: ',
-		})
-		input.prompt_type = 'confirm'
-
-		input:mount()
-	end)
 end
 
 function Remap_fugitive()
@@ -135,6 +98,12 @@ function Remap_neotree()
 	end)
 end
 
+function Remap_rendermarkdown()
+	vim.keymap.set('n', '<leader>mdt', function()
+		vim.cmd('RenderMarkdown toggle')
+	end)
+end
+
 function Remap_telescope()
 	local tsb = require 'telescope.builtin'
 	local tscv = require 'telescope.config'.values
@@ -154,7 +123,6 @@ function Remap_telescope()
 			sorter = tscv.generic_sorter({}),
 		}):find()
 	end
-
 
 	-- 'Pick File' - find files
 	vim.keymap.set('n', '<leader>pf', tsb.find_files)
@@ -183,6 +151,7 @@ function Remap()
 	Remap_harpoon()
 	Remap_luasnip()
 	Remap_neotree()
+	Remap_rendermarkdown()
 	Remap_telescope()
 	Remap_undotree()
 end

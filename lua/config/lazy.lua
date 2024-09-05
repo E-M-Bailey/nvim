@@ -36,10 +36,17 @@ require 'lazy'.setup({
 	},
 })
 
--- Print list of installed plugins for README
-PrintPlugins = function()
+-- set register (default "') to list of installed plugins for README
+GetPlugins = function(reg)
+	local lines = {}
 	for _,plugin in ipairs(require 'lazy'.plugins()) do
-		print(' - [' .. plugin.name .. '](' .. plugin.url .. ')')
+		table.insert(lines, ' - [' .. plugin.name .. '](' .. plugin.url .. ')')
 	end
+	table.sort(lines)
+	local str=table.concat(lines, '\n')
+	if reg == nil then
+		reg = '"'
+	end
+	vim.fn.setreg(reg, str)
 end
 
