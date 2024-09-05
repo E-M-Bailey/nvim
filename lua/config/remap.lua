@@ -3,22 +3,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
-function Dump(o, id)
-	if type(o) == 'table' then
-		local s = string.rep(' ', id) .. '{\n'
-		for k,v in pairs(o) do
-			if type(k) ~= 'number' then k = '"'..k..'"' end
-			s = s .. string.rep(' ', id + 1) .. '['..k..'] = \n' .. Dump(v, id + 2) .. ',\n'
-		end
-		return s .. string.rep(' ', id) .. '} '
-	else
-		return string.rep(' ', id) .. tostring(o)
-	end
-end
-function DumpNT()
-	return Dump(require 'neo-tree'.config, 0)
-end
-
 function Remap_general()
 	-- 'Quit' - exit
 	vim.keymap.set('n', '<leader>q', vim.cmd.xit)
