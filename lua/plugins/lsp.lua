@@ -56,10 +56,19 @@ return {
 			},
 			handlers = {
 				function(serv)
-					require('lspconfig')[serv].setup({
+					require 'lspconfig'[serv].setup({
 						capabilities = cap
 					})
 				end,
+				['remark_ls'] = function()
+					require 'lspconfig'.remark_ls.setup({
+						settings = {
+							remark = {
+								requireConfig = true
+							}
+						}
+					})
+				end
 			}
 		})
 
