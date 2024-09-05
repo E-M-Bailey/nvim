@@ -22,17 +22,24 @@ end
 vim.opt.rtp:prepend(path)
 
 require 'lazy'.setup({
-	-- NOTE plugins:
+	-- plugins:
 	spec = {
 		{ import = 'plugins' },
 	},
-	-- NOTE other settings:
+	-- other settings:
 	install = {
-		colorscheme = { 'habamax' }
+		colorscheme = { 'habamax' },
 	},
 	-- Check for updates automatically
 	checker = {
-		enabled = true
+		enabled = true,
 	},
 })
+
+-- Print list of installed plugins for README
+PrintPlugins = function()
+	for _,plugin in ipairs(require 'lazy'.plugins()) do
+		print(' - [' .. plugin.name .. '](' .. plugin.url .. ')')
+	end
+end
 
