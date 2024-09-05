@@ -50,7 +50,7 @@ return {
 				'remark_ls',
 				-- 'rust_analyzer',
 				-- 'sqls',
-				-- 'tsserver',
+				-- 'ts_ls',
 				'vimls',
 				-- 'zls',
 			},
